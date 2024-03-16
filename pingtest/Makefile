@@ -27,7 +27,7 @@ endef
 
 # 定义构建和安装规则
 define Build/Prepare
-	mkdir -p $(PKG_BUILD_DIR)
+	# mkdir -p $(PKG_BUILD_DIR)
 	# $(CP) ./root/* $(PKG_BUILD_DIR)/root/
 	# $(CP) ./luasrc/* $(PKG_BUILD_DIR)/luasrc/
 endef
@@ -37,9 +37,9 @@ define Build/Compile
 endef
 
 define Package/$(PKG_NAME)/install
-	$(INSTALL_DIR) $(1)/usr/bin
+	# $(INSTALL_DIR) $(1)/usr/bin
 	# 安装可执行文件到目标系统的/usr/bin目录
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/root/bin/pingtest $(1)/usr/bin/
+	# $(INSTALL_BIN) $(PKG_BUILD_DIR)/root/bin/pingtest $(1)/usr/bin/
 	# 安装LuCI应用文件
 	$(CP) ./luasrc/* $(1)/usr/lib/lua/luci/
 	$(CP) ./root/* $(1)/
