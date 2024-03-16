@@ -37,13 +37,16 @@ define Build/Compile
 endef
 
 define Package/$(PKG_NAME)/install
-	# $(INSTALL_DIR) $(1)/usr/bin
-	# 安装可执行文件到目标系统的/usr/bin目录
-	# $(INSTALL_BIN) $(PKG_BUILD_DIR)/root/bin/pingtest $(1)/usr/bin/
-	# 安装LuCI应用文件
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(CP) ./root/etc/init.d/pingtest $(1)/etc/init.d/pingtest
+	$(INSTALL_DIR) $(1)/etc/config
+	$(CP) ./root/etc/config/* $(1)/etc/config/
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(CP) ./root/usr/bin/pingtest $(1)/usr/bin/pingtest
+	$(INSTALL_DIR) $(1)/usr/lib/lua/luci
 	$(CP) ./luasrc/* $(1)/usr/lib/lua/luci/
-	$(CP) ./root/* $(1)/
 endef
+
 
 # 这里告诉OpenWrt构建系统包含这个包
 $(eval $(call BuildPackage,$(PKG_NAME)))
