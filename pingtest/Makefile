@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 # 定义包名
-PKG_NAME:=pingtest
+PKG_NAME:=luci-app-pingtest
 # 定义包版本
 PKG_VERSION:=1.0.0
 # 定义包发布版本
@@ -28,7 +28,8 @@ endef
 # 定义构建和安装规则
 define Build/Prepare
 	mkdir -p $(PKG_BUILD_DIR)
-	$(CP) ./src/* $(PKG_BUILD_DIR)/
+	# $(CP) ./root/* $(PKG_BUILD_DIR)/root/
+	# $(CP) ./luasrc/* $(PKG_BUILD_DIR)/luasrc/
 endef
 
 define Build/Compile
@@ -46,3 +47,4 @@ endef
 
 # 这里告诉OpenWrt构建系统包含这个包
 $(eval $(call BuildPackage,$(PKG_NAME)))
+
