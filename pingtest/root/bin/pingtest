@@ -1,0 +1,43 @@
+#!/bin/bash
+
+
+# 如果变量不是3个 直接退出
+if [ $# -ne 4 ]; then
+    echo "Usage: $0 <host> <ping_count> <sleep_time> <restart_wan>"
+    exit 1
+fi
+
+# 定义变量
+HOST=$1 # HOST="www.baidu.com"
+PING_COUNT=$2 # PING_COUNT=5
+SLEEP_TIME=$3 # 300s = 5m
+RESTART_WAN=$4 # 0
+
+function check_net(){
+    # 尝试通过IPv4 ping
+    if ping -c $PING_COUNT $HOST > /dev/null 2>&1; then
+        echo "IPv4 ok."
+    else
+        echo "IPv4 not ok."
+        exit 1
+    fi
+
+    # 如果IPv4 ping成功，接着尝试通过IPv6 ping
+    if ping6 -c $PING_COUNT $HOST > /dev/null 2>&1; then
+        echo "IPv6 ok."
+    else
+        echo "IPv6 not ok."
+        if [ $RESTART_WAN -eq 1 ]; then
+            echo "restart wan_6 ..."
+            ifup wan_6
+            echo "restart wan_6 done"
+        fi
+    fi
+}
+
+while true; do
+    # 你的检查逻辑，例如调用pingtest脚本
+    check_net 
+    # 等待5分钟
+    sleep $SLEEP_TIME
+done
