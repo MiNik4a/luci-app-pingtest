@@ -1,12 +1,15 @@
 module("luci.controller.pingtest", package.seeall)
 
 function index()
-    entry({"admin", "network", "pingtest"}, cbi("pingtest"), _("Ping Test"), 60)
+    entry({"admin", "network", "pingtest"}, cbi("pingtest/settings"), _("Ping Test Setting"), 60).leaf = true
     entry({"admin", "network", "pingtest", "status"}, call("action_status")).leaf = true
 end
 
 function action_status()
+
+
     local uci = require "luci.model.uci".cursor()
+
     local domain = uci:get("pingtest", "settings", "domain") or "www.baidu.com"
     local count = uci:get("pingtest", "settings", "count") or 5
     local sleep_time = uci:get("pingtest", "settings", "sleep_time") or 300
@@ -21,4 +24,3 @@ function action_status()
 
     luci.http.prepare_content("application/json")
     luci.http.write_json({ ipv4 = ipv4_status == 0, ipv6 = ipv6_status == 0 })
-end
