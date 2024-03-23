@@ -24,3 +24,4 @@ function action_status()
 
     luci.http.prepare_content("application/json")
     luci.http.write_json({ ipv4 = ipv4_status == 0, ipv6 = ipv6_status == 0 })
+end
