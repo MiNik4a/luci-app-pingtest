@@ -1,7 +1,6 @@
-config pingtest 'settings'
-    option domain 'www.baidu.com'
-    option count '5'
-    option sleep_time '300'
-    option restart_wan '0'
-
+config settings 'default'
+	option domain 'www.baidu.com'
+	option count '4'
+	option sleep_time '300'
+	option restart_wan '1'
 
