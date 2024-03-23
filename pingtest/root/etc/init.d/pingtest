@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh /etc/rc.common
 
 # 定义变量
 HOST="www.baidu.com"
